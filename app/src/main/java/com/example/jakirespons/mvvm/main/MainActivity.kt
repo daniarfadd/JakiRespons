@@ -1,4 +1,4 @@
-package com.example.jakirespons.ui
+package com.example.jakirespons.mvvm.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

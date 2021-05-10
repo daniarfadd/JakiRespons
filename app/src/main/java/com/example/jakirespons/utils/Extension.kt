@@ -9,13 +9,13 @@ import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 
 fun View.showSnackbar(@StringRes res: Int, @IdRes anchor: Int) {
-    Snackbar.make(this.context, this, resources.getString(res), Snackbar.LENGTH_SHORT)
+    Snackbar.make(this, resources.getString(res), Snackbar.LENGTH_SHORT)
         .setAnchorView(anchor)
         .show()
 }
 
 fun View.showSnackbar(@StringRes res: Int) {
-    Snackbar.make(this.context, this, resources.getString(res), Snackbar.LENGTH_SHORT)
+    Snackbar.make(this, resources.getString(res), Snackbar.LENGTH_SHORT)
         .show()
 }
 
