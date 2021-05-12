@@ -25,6 +25,7 @@ buildscript {
         multidexVersion = "2.0.1"
         roomVersion = "2.3.0"
         pagingVersion = '3.0.0'
+        cameraViewVersion = "2.7.0"
     }
     repositories {
         google()

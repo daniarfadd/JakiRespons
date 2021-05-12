@@ -62,6 +62,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "androidx.multidex:multidex:$multidexVersion"
+    api "com.otaliastudios:cameraview:$cameraViewVersion"
 
     // Koin for Kotlin
     implementation "org.koin:koin-core:$koinVersion"
