@@ -10,4 +10,17 @@
         android:name="com.example.jakirespons.mvvm.main.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" />
+    <fragment
+        android:id="@+id/laporFragment"
+        android:name="com.example.jakirespons.mvvm.lapor.LaporFragment"
+        android:label="lapor_fragment"
+        tools:layout="@layout/lapor_fragment" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.jakirespons.mvvm.lapor.category.CategoryFragment"
+        android:label="CategoryFragment" />
+    <fragment
+        android:id="@+id/descriptionFragment"
+        android:name="com.example.jakirespons.mvvm.lapor.category.description.DescriptionFragment"
+        android:label="DescriptionFragment" />
 </navigation>

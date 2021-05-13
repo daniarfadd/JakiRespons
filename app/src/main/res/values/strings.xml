@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">JakiRespons</string>
+    <string name="request_permissions">Please grant permission to using your storage and camera! It will be required for creating report.</string>
+    <string name="pick_source">Pick Image Source</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_file_creation">Error occurred while creating the File</string>
+    <string name="select_category">Select Category</string>
+    <string name="select_category_hint">Search category or keywords</string>
+    <string name="make_description">Make Description</string>
+    <string name="desc_example_head">A good description contains the address of the event, for example:</string>
+    <string name="desc_example_content">Jalan Merdeka Selatan 8–9, near the DKI Jakarta City Hall. Its position is in front of the Trans Jakarta City Hall Stop, there is a hole right in front of the bus stop. This hole is very dangerous to motorists and other people. If it rains, it can create puddles. Holes need to be patched as soon as possible. \n\nThank you. </string>
+    <string name="write_a_description_here">Write a description here</string>
+    <string name="error">Error</string>
+    <string name="error_min_10_char">The description must have a minimum of 10 characters.</string>
+    <string name="ok">OK</string>
 </resources>

@@ -25,7 +25,8 @@ buildscript {
         multidexVersion = "2.0.1"
         roomVersion = "2.3.0"
         pagingVersion = '3.0.0'
-        cameraViewVersion = "2.7.0"
+        easypermissinsVersion = "3.0.0"
+        storageVersion = "0.5.3"
     }
     repositories {
         google()
@@ -49,6 +50,13 @@ allprojects {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+    }
+    //Support @JvmDefault
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            freeCompilerArgs = ['-Xjvm-default=all', '-Xopt-in=kotlin.RequiresOptIn']
+            includeRuntime = true
+        }
     }
 }
 
