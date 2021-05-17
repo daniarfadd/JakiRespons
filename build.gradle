@@ -27,6 +27,8 @@ buildscript {
         pagingVersion = '3.0.0'
         easypermissinsVersion = "3.0.0"
         storageVersion = "0.5.3"
+        localBroadcastManagerVersion = "1.0.0"
+        gmsPlayServiceLocationVersion = "18.0.0"
     }
     repositories {
         google()

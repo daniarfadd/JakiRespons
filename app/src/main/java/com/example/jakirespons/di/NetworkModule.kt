@@ -1,4 +1,4 @@
-package com.oazisn.moviecatalog.di
+package com.example.jakirespons.di
 
 import com.oazisn.moviecatalog.data.remote.ApiService
 import org.koin.dsl.module

@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import com.example.jakirespons.MyApplication
 import com.example.jakirespons.R
 import com.example.jakirespons.databinding.LaporFragmentBinding
 import com.example.jakirespons.utils.showToast
@@ -44,15 +46,15 @@ class LaporFragment : Fragment(), EasyPermissions.PermissionCallbacks{
 
     @AfterPermissionGranted(RC_CAMERA_AND_STORAGE)
     private fun reqPermissions() {
-        val permissions = arrayOf(
+        val permissions = arrayListOf(
             Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
         )
 
-        if (EasyPermissions.hasPermissions(requireContext(), *permissions)){
+        if (EasyPermissions.hasPermissions(requireContext(), *permissions.toTypedArray())){
+            MyApplication.instance.location.startLocationUpdates()
             Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
                     // Create the File where the photo should go
@@ -71,13 +73,16 @@ class LaporFragment : Fragment(), EasyPermissions.PermissionCallbacks{
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        startActivityForResult(takePictureIntent, REQ_TAKE_PHOTO)
+                        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+
+                        }
+                        resultLauncher.launch(takePictureIntent)
                     }
                 }
             }
         }
         else {
-            EasyPermissions.requestPermissions(this, getString(R.string.request_permissions), RC_CAMERA_AND_STORAGE, *permissions)
+            EasyPermissions.requestPermissions(this, getString(R.string.request_permissions), RC_CAMERA_AND_STORAGE, *permissions.toTypedArray())
         }
     }
 
@@ -86,11 +91,11 @@ class LaporFragment : Fragment(), EasyPermissions.PermissionCallbacks{
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) { }
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+    }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         requireContext().showToast(R.string.request_permissions, Toast.LENGTH_LONG)
@@ -100,8 +105,13 @@ class LaporFragment : Fragment(), EasyPermissions.PermissionCallbacks{
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            reqPermissions()
+        }
+    }
+
     companion object {
-        const val REQ_TAKE_PHOTO = 1
         const val RC_CAMERA_AND_STORAGE = 2
     }
 

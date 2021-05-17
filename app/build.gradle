@@ -64,6 +64,9 @@ dependencies {
     implementation "androidx.multidex:multidex:$multidexVersion"
     implementation "pub.devrel:easypermissions:$easypermissinsVersion"
     implementation "com.anggrayudi:storage:$storageVersion"
+    implementation "androidx.localbroadcastmanager:localbroadcastmanager:$localBroadcastManagerVersion"
+
+    implementation "com.google.android.gms:play-services-location:$gmsPlayServiceLocationVersion"
 
     // Koin for Kotlin
     implementation "org.koin:koin-core:$koinVersion"
