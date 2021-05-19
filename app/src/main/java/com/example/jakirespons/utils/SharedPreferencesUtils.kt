@@ -6,6 +6,7 @@ import com.example.jakirespons.R
 
 private const val KEY_LONGITUDE = "key-longitude"
 private const val KEY_LATITUDE = "key-latitude"
+private const val KEY_LOCATION_FOREGROUND = "key-location-fg"
 
 private fun Context.getAppSharedPreferences() : SharedPreferences =
     getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
@@ -38,4 +39,11 @@ fun Context.setLatitude(latitude: Double){
 fun Context.getLatitude() : Double {
     return getSharedDouble(KEY_LATITUDE, 0.0)
 }
+
+fun Context.setLocationForegroundStatus(value: Boolean) {
+    getAppSharedPreferences().edit()
+        .putBoolean(KEY_LOCATION_FOREGROUND, value)
+        .apply()
+}
+
 

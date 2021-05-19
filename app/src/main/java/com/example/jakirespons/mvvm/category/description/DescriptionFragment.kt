@@ -1,13 +1,12 @@
-package com.example.jakirespons.mvvm.lapor.category.description
+package com.example.jakirespons.mvvm.category.description
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
+import android.view.WindowManager
 import com.example.jakirespons.R
 import com.example.jakirespons.databinding.DescriptionFragmentBinding
 import com.example.jakirespons.utils.observeInLifecycle
@@ -27,7 +26,8 @@ class DescriptionFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view,   savedInstanceState)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding.apply {
             tilDesc.setEndIconOnClickListener {
                 descriptionViewModel.validate()
@@ -42,7 +42,8 @@ class DescriptionFragment : Fragment() {
                 when (it) {
                     is DescriptionViewModel.Event.IsValid -> {
                         if (it.bool) {
-                            // pindah halaman
+                            requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED)
+
                         }
                         else {
                             val alertBuilder = AlertDialog.Builder(requireContext())
@@ -53,6 +54,8 @@ class DescriptionFragment : Fragment() {
                                     dialog.dismiss()
                                 }
                             }
+                            val dialog = alertBuilder.create()
+                            dialog.show()
                         }
                     }
                 }

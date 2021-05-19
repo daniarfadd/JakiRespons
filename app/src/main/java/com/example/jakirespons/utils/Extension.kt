@@ -7,24 +7,26 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
-
-fun View.showSnackbar(@StringRes res: Int, @IdRes anchor: Int) {
-    Snackbar.make(this, resources.getString(res), Snackbar.LENGTH_SHORT)
-        .setAnchorView(anchor)
-        .show()
-}
 
 fun View.showSnackbar(@StringRes res: Int) {
     Snackbar.make(this, resources.getString(res), Snackbar.LENGTH_SHORT)
         .show()
 }
 
+fun View.showSnackbar(string: String) {
+    Snackbar.make(this, string, Snackbar.LENGTH_SHORT)
+        .show()
+}
+
 fun Context.showToast(@StringRes res: Int, duration: Int) {
     Toast.makeText(this, res, duration).show()
+}
+
+fun Context.showToast(string: String, duration: Int) {
+    Toast.makeText(this, string, duration).show()
 }
 
 fun Context.isConnected(): Boolean {

@@ -3,24 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_app"
-    app:startDestination="@id/laporFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.jakirespons.mvvm.main.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
-    <fragment
-        android:id="@+id/laporFragment"
-        android:name="com.example.jakirespons.mvvm.lapor.LaporFragment"
-        android:label="lapor_fragment"
-        tools:layout="@layout/lapor_fragment" />
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.jakirespons.mvvm.lapor.category.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:name="com.example.jakirespons.mvvm.category.CategoryFragment"
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_categoryFragment_to_descriptionFragment"
+            app:destination="@id/descriptionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/descriptionFragment"
-        android:name="com.example.jakirespons.mvvm.lapor.category.description.DescriptionFragment"
+        android:name="com.example.jakirespons.mvvm.category.description.DescriptionFragment"
         android:label="DescriptionFragment" />
 </navigation>

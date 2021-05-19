@@ -1,9 +1,6 @@
-package com.example.jakirespons.mvvm.lapor.category
+package com.example.jakirespons.mvvm.category
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.oazisn.moviecatalog.data.remote.ApiService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CategoryViewModel : ViewModel() {

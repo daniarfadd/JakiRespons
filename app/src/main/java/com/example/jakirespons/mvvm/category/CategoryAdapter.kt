@@ -1,4 +1,4 @@
-package com.example.jakirespons.mvvm.lapor.category
+package com.example.jakirespons.mvvm.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

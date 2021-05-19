@@ -1,6 +1,7 @@
-package com.example.jakirespons.mvvm.lapor.category.description
+package com.example.jakirespons.mvvm.category.description
 
 import androidx.lifecycle.*
+import com.example.jakirespons.utils.Lapor
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ class DescriptionViewModel : ViewModel() {
 
     fun setDesc(desc: String) {
         _desc.value = desc
+        Lapor.description = desc
     }
 
     fun validate(){

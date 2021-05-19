@@ -1,22 +1,25 @@
-package com.example.jakirespons.mvvm.lapor.category
+package com.example.jakirespons.mvvm.category
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.jakirespons.R
-import com.example.jakirespons.databinding.ActivityMainBinding
 import com.example.jakirespons.databinding.CategoryFragmentBinding
+import com.example.jakirespons.utils.Lapor
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment : Fragment() {
     private val categoryViewModel: CategoryViewModel by viewModel()
     private lateinit var binding: CategoryFragmentBinding
     private val adapter = CategoryAdapter {
+        Lapor.category = it
+        binding.root.showSnackbar(requireContext().getString(R.string.category_selected_snackbar, it))
 
+        val direction = CategoryFragmentDirections.actionCategoryFragmentToDescriptionFragment()
+        binding.root.findNavController().navigate(direction)
     }
 
     override fun onCreateView(
@@ -34,6 +37,9 @@ class CategoryFragment : Fragment() {
             categoryFilter.addTextChangedListener {
                 categoryViewModel.filter(it.toString())
             }
+            Glide.with(requireContext())
+                .load(Lapor.photoPath)
+                .into(imageView)
         }
         categoryViewModel.apply {
             categories.observe(viewLifecycleOwner, {

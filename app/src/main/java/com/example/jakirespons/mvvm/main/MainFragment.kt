@@ -1,17 +1,81 @@
 package com.example.jakirespons.mvvm.main
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.os.IBinder
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
+import androidx.navigation.findNavController
+import com.example.jakirespons.MyApplication
+import com.example.jakirespons.R
 import com.example.jakirespons.databinding.MainFragmentBinding
+import com.example.jakirespons.service.ForegroundOnlyLocationService
+import com.example.jakirespons.utils.Lapor
+import com.example.jakirespons.utils.showToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
+import java.io.File
+import java.io.IOException
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding : MainFragmentBinding
     private val viewModel: MainViewModel by viewModel()
+    private val resultLauncherCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK){
+            Lapor.photoPath = viewModel.currentPhotoPath
+            val direction = MainFragmentDirections.actionMainFragmentToCategoryFragment()
+            binding.root.findNavController().navigate(direction)
+        }
+        GlobalScope.launch() {
+            delay(5000)
+            setLocationForegroundServiceOff()
+        }
+    }
+    private lateinit var locationManager : LocationManager
+
+    // Provides location updates for while-in-use feature.
+    private var foregroundOnlyLocationService: ForegroundOnlyLocationService? = null
+
+    // Monitors connection to the while-in-use service.
+    private val foregroundOnlyServiceConnection = object : ServiceConnection {
+
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            val binder = service as ForegroundOnlyLocationService.LocalBinder
+            foregroundOnlyLocationService = binder.service
+            MyApplication.foregroundOnlyLocationServiceBound = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            foregroundOnlyLocationService = null
+            MyApplication.foregroundOnlyLocationServiceBound = false
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,9 +85,146 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        requireContext().showToast(R.string.request_permissions, Toast.LENGTH_LONG)
+
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            reqPermissions()
+        }
+    }
+
+    private fun locationEnabled() : Boolean{
+        var gpsEnabled = false
+        var networkEnabled = false
+        try {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        try {
+            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return !(!gpsEnabled || !networkEnabled)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val serviceIntent = Intent(requireContext(), ForegroundOnlyLocationService::class.java)
+        requireContext().bindService(serviceIntent, foregroundOnlyServiceConnection, Context.BIND_AUTO_CREATE)
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        binding.apply {
+            toolbar.inflateMenu(R.menu.main_menu)
+            toolbar.setOnMenuItemClickListener{
+                when (it.itemId) {
+                    R.id.report -> {
+                        onReportMenuClicked()
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> return@setOnMenuItemClickListener false
+                }
+            }
+        }
+        viewModel.storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+    }
+
+    private fun onReportMenuClicked() {
+        if (locationEnabled()){
+            reqPermissions()
+        }
+        else {
+            AlertDialog.Builder(requireContext())
+                .setMessage(getString(R.string.request_gps_enabled))
+                .setPositiveButton(R.string.retry) { paramDialogInterface, paramInt ->
+                    paramDialogInterface.dismiss()
+                    onReportMenuClicked()
+                }
+                .show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (MyApplication.foregroundOnlyLocationServiceBound) {
+            requireContext().unbindService(foregroundOnlyServiceConnection)
+            MyApplication.foregroundOnlyLocationServiceBound = false
+        }
+    }
+
+    fun setLocationForegroundServiceOn() {
+        foregroundOnlyLocationService?.subscribeToLocationUpdates()
+    }
+
+    fun setLocationForegroundServiceOff() {
+        foregroundOnlyLocationService?.unsubscribeToLocationUpdates()
+    }
+
+    @AfterPermissionGranted(RC_CAMERA_AND_STORAGE)
+    private fun reqPermissions() {
+        val permissions = arrayListOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+
+        if (EasyPermissions.hasPermissions(requireContext(), *permissions.toTypedArray())){
+            setLocationForegroundServiceOn()
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
+                    // Create the File where the photo should go
+                    val photoFile: File? = try {
+                        viewModel.createImageFile()
+                    } catch (ex: IOException) {
+                        ex.printStackTrace()
+                        requireContext().showToast(R.string.error_file_creation, Toast.LENGTH_SHORT)
+                        null
+                    }
+                    // Continue only if the File was successfully created
+                    photoFile?.also {
+                        val photoURI: Uri = FileProvider.getUriForFile(
+                            requireContext(),
+                            "com.example.jakirespons.fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    }
+                }
+                GlobalScope.launch {
+                    delay(500)
+                    resultLauncherCamera.launch(takePictureIntent)
+                }
+            }
+
+        }
+        else {
+            EasyPermissions.requestPermissions(this, getString(R.string.request_permissions),
+                RC_CAMERA_AND_STORAGE, *permissions.toTypedArray())
+        }
+    }
+
+    companion object {
+        const val RC_CAMERA_AND_STORAGE = 2
     }
 
 }

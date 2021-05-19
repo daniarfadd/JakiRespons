@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:background="@color/white"
         android:theme="@style/Theme.JakiRespons.AppBarOverlay">
 
@@ -25,32 +25,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/grey_to_white"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_desc"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:endIconDrawable="@drawable/ic_baseline_check_24"
-            app:endIconMode="custom"
-            app:endIconTint="@color/purple_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tv_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/write_a_description_here" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView2"
@@ -80,4 +58,23 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_desc"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:endIconDrawable="@drawable/ic_baseline_check_24"
+        app:endIconMode="custom"
+        app:endIconTint="@color/purple_500"
+        android:layout_gravity="bottom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/write_a_description_here" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
