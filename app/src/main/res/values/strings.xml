@@ -46,4 +46,11 @@
     <string name="description">DESCRIPTION</string>
     <string name="category">CATEGORY</string>
     <string name="send">Send</string>
+    <string name="atur">Atur</string>
+    <string name="paling_baru">Paling baru</string>
+    <string name="paling_lama">Paling lama</string>
+    <string name="banyak_komen">Paling banyak komentar</string>
+    <string name="banyak_dukung">Paling banyak didukung</string>
+    <string name="close">Close</string>
+    <string name="choose">Choose</string>
 </resources>
