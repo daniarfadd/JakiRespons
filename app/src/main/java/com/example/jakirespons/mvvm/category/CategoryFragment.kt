@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.jakirespons.R
 import com.example.jakirespons.databinding.CategoryFragmentBinding
 import com.example.jakirespons.utils.Lapor
+import com.example.jakirespons.utils.showSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment : Fragment() {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.widget.addTextChangedListener
 import com.example.jakirespons.R
 import com.example.jakirespons.databinding.DescriptionFragmentBinding
 import com.example.jakirespons.utils.observeInLifecycle
