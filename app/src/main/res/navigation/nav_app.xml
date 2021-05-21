@@ -12,7 +12,18 @@
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
+            app:destination="@id/categoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -20,10 +31,40 @@
         android:label="CategoryFragment" >
         <action
             android:id="@+id/action_categoryFragment_to_descriptionFragment"
-            app:destination="@id/descriptionFragment" />
+            app:destination="@id/descriptionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/descriptionFragment"
         android:name="com.example.jakirespons.mvvm.category.description.DescriptionFragment"
-        android:label="DescriptionFragment" />
+        android:label="DescriptionFragment" >
+        <action
+            android:id="@+id/action_descriptionFragment_to_summaryFragment"
+            app:destination="@id/summaryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="com.example.jakirespons.mvvm.category.description.summary.SummaryFragment"
+        android:label="SummaryFragment" >
+        <action
+            android:id="@+id/action_summaryFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.jakirespons.mvvm.detail.DetailFragment"
+        android:label="DetailFragment" />
 </navigation>

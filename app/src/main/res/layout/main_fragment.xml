@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.JakiRespons.AppBarOverlay">
-n
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -96,7 +96,6 @@ n
             android:id="@+id/button_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="64dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line1">
@@ -111,6 +110,7 @@ n
                 android:src="@drawable/ic_baseline_swap_vert_34" />
 
             <TextView
+                android:id="@+id/tv_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -119,7 +119,7 @@ n
                 android:paddingStart="8dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="20dp"
-                android:text="Atur"
+                android:text="@string/sort"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="15sp"
@@ -145,6 +145,7 @@ n
                 android:src="@drawable/ic_baseline_sort_34" />
 
             <TextView
+                android:id="@+id/tvSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -153,7 +154,7 @@ n
                 android:paddingStart="8dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="20dp"
-                android:text="Saring"
+                android:text="@string/filter"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="15sp"
@@ -172,20 +173,32 @@ n
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_filter" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_laporan"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line2"
-            tools:listitem="@layout/items_laporan">
+            app:layout_constraintTop_toBottomOf="@+id/line2">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_laporan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/items_laporan"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
+    <FrameLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

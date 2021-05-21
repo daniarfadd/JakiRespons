@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -43,6 +44,12 @@ class CategoryFragment : Fragment() {
             Glide.with(requireContext())
                 .load(Lapor.photoPath)
                 .into(imageView)
+            toolbar.apply {
+                setNavigationOnClickListener { view ->
+                    (activity as AppCompatActivity?)?.supportActionBar?.show()
+                    view.findNavController().navigateUp()
+                }
+            }
         }
         categoryViewModel.apply {
             categories.observe(viewLifecycleOwner, {

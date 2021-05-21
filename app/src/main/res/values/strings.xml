@@ -31,7 +31,7 @@
     <string name="stat_lap">Koordinasi</string>
     <string name="tgl_proses">19 Februari 2021</string>
     <string name="lap_proses">Laporan dikoordinasikan ke DINAS PENDIDIKAN</string>
-    <string name="find_report">Nomor laporan atau kata kunci</string>
+    <string name="find_report">Laporan number or keywords…</string>
     <string name="title">Tolong ayam saya dipukuli</string>
     <string name="lokasi_list_laporan">Cempakah Putih Barat</string>
     <string name="waktu_list_laporan">5 jam yang lalu</string>
@@ -47,10 +47,15 @@
     <string name="category">CATEGORY</string>
     <string name="send">Send</string>
     <string name="atur">Atur</string>
-    <string name="paling_baru">Paling baru</string>
-    <string name="paling_lama">Paling lama</string>
-    <string name="banyak_komen">Paling banyak komentar</string>
-    <string name="banyak_dukung">Paling banyak didukung</string>
+    <string name="paling_baru">Newest</string>
+    <string name="paling_lama">Oldest</string>
+    <string name="banyak_komen">Most commented</string>
+    <string name="banyak_dukung">Most supported</string>
     <string name="close">Close</string>
     <string name="choose">Choose</string>
+    <string name="under_development">This feature is under active development!</string>
+    <string name="filter">Filter</string>
+    <string name="sort">Sort</string>
+    <string name="location_not_valid">Your location is not valid! Trying in 2 sec …</string>
+    <string name="thank_report">Thank You! The data has beed uploaded successfully.</string>
 </resources>

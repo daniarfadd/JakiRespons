@@ -2,36 +2,34 @@ package com.example.jakirespons.mvvm.main
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.IBinder
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.jakirespons.MyApplication
 import com.example.jakirespons.R
+import com.example.jakirespons.databinding.FragmentOptionAturBinding
 import com.example.jakirespons.databinding.MainFragmentBinding
 import com.example.jakirespons.service.ForegroundOnlyLocationService
-import com.example.jakirespons.utils.Lapor
-import com.example.jakirespons.utils.showToast
-import kotlinx.coroutines.Dispatchers
+import com.example.jakirespons.utils.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -77,6 +75,13 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+    private lateinit var sheetBehavior: BottomSheetBehavior<FrameLayout>
+    private lateinit var sheetDialog: BottomSheetDialog
+    private val adapter = MainAdapter{
+        val direction = MainFragmentDirections.actionMainFragmentToDetailFragment()
+        requireView().findNavController().navigate(direction)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -110,28 +115,25 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         }
     }
 
-    private fun locationEnabled() : Boolean{
-        var gpsEnabled = false
-        var networkEnabled = false
-        try {
-            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        try {
-            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return !(!gpsEnabled || !networkEnabled)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val serviceIntent = Intent(requireContext(), ForegroundOnlyLocationService::class.java)
         requireContext().bindService(serviceIntent, foregroundOnlyServiceConnection, Context.BIND_AUTO_CREATE)
-        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager = requireContext().getLocationManager()
         binding.apply {
+            val sortView = FragmentOptionAturBinding.inflate(layoutInflater)
+
+            sortView.apply {
+                btnClose.setOnClickListener {
+                    sheetDialog.dismiss()
+                }
+            }
+
+            sheetBehavior = BottomSheetBehavior.from(bottomSheet)
+            sheetDialog = BottomSheetDialog(requireContext())
+            sheetDialog.setContentView(sortView.root)
+            sheetDialog.window?.addFlags(FLAG_TRANSLUCENT_STATUS)
+
             toolbar.inflateMenu(R.menu.main_menu)
             toolbar.setOnMenuItemClickListener{
                 when (it.itemId) {
@@ -142,23 +144,53 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                     else -> return@setOnMenuItemClickListener false
                 }
             }
+            buttonFilter.setOnClickListener {
+                buttonFilterOnClick()
+            }
+            imgFilter.setOnClickListener {
+                buttonFilterOnClick()
+            }
+            tvSort.setOnClickListener {
+                buttonFilterOnClick()
+            }
+
+            buttonSort.setOnClickListener {
+                buttonSortOnClick()
+            }
+            imgSort.setOnClickListener {
+                buttonSortOnClick()
+            }
+            tvSort.setOnClickListener {
+                buttonSortOnClick()
+            }
+
+            swipeRefresh.setOnRefreshListener {
+                swipeRefresh.isRefreshing = false
+            }
+            rvLaporan.adapter = adapter
+
         }
         viewModel.storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
     }
 
+    private fun buttonFilterOnClick() {
+        requireView().showSnackbar(R.string.under_development)
+    }
+
+    private fun buttonSortOnClick() {
+        sheetDialog.show()
+
+    }
+
     private fun onReportMenuClicked() {
-        if (locationEnabled()){
+        if (requireContext().isLocationEnabled()){
             reqPermissions()
         }
         else {
-            AlertDialog.Builder(requireContext())
-                .setMessage(getString(R.string.request_gps_enabled))
-                .setPositiveButton(R.string.retry) { paramDialogInterface, paramInt ->
-                    paramDialogInterface.dismiss()
-                    onReportMenuClicked()
-                }
-                .show()
+            requireContext().showAlertReqGPSOn {
+                onReportMenuClicked()
+            }
         }
     }
 

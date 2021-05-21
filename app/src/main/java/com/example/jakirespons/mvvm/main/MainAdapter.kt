@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jakirespons.databinding.ItemsLaporanBinding
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.ListViewHolder>() {
-
-
+class MainAdapter(val onClick: () -> Unit) : RecyclerView.Adapter<MainAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemsLaporanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -15,15 +13,17 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ListViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind()
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = 10
 
-    class ListViewHolder(private val binding: ItemsLaporanBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    inner class ListViewHolder(private val binding: ItemsLaporanBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind() {
+            binding.root.setOnClickListener {
+                onClick()
+            }
+        }
     }
 
 

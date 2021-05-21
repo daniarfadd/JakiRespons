@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.findNavController
 import com.example.jakirespons.R
 import com.example.jakirespons.databinding.DescriptionFragmentBinding
 import com.example.jakirespons.utils.observeInLifecycle
@@ -23,18 +25,24 @@ class DescriptionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DescriptionFragmentBinding.inflate(layoutInflater, container, false)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view,   savedInstanceState)
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding.apply {
             tilDesc.setEndIconOnClickListener {
                 descriptionViewModel.validate()
             }
             tvDesc.addTextChangedListener {
                 descriptionViewModel.setDesc(it.toString())
+            }
+            toolbar.apply {
+                setNavigationOnClickListener { view ->
+                    (activity as AppCompatActivity?)?.supportActionBar?.show()
+                    view.findNavController().navigateUp()
+                }
             }
         }
 
@@ -44,7 +52,8 @@ class DescriptionFragment : Fragment() {
                     is DescriptionViewModel.Event.IsValid -> {
                         if (it.bool) {
                             requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED)
-
+                            val direction = DescriptionFragmentDirections.actionDescriptionFragmentToSummaryFragment()
+                            requireView().findNavController().navigate(direction)
                         }
                         else {
                             val alertBuilder = AlertDialog.Builder(requireContext())

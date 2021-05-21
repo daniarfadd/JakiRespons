@@ -13,7 +13,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:text="@string/atur" />
+        android:text="@string/sort" />
 
     <RadioGroup
         android:id="@+id/rg_options"
