@@ -13,26 +13,17 @@ object ApiService {
         val mLoggingInterceptor = HttpLoggingInterceptor()
         mLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val apiKeyInterceptor = object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                var original = chain.request()
-                val url = original.url.newBuilder()
-                    .addQueryParameter("api_key", "38c6ea3db680fae502416d80ff416a0b").build()
-                original = original.newBuilder().url(url).build()
-                return chain.proceed(original)
-            }
-        }
 
         val mClient = OkHttpClient.Builder()
-            .addInterceptor(apiKeyInterceptor)
             .addInterceptor(mLoggingInterceptor)
             .build()
 
         return@lazy Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl("https://deft-haven-312422.et.r.appspot.com/")
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(mClient)
             .build()
     }
+
 }

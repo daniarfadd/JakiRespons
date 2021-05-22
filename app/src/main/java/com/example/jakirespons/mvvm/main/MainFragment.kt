@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.jakirespons.MyApplication
 import com.example.jakirespons.R
+import com.example.jakirespons.base.BaseViewModel
 import com.example.jakirespons.databinding.FragmentOptionAturBinding
 import com.example.jakirespons.databinding.MainFragmentBinding
 import com.example.jakirespons.service.ForegroundOnlyLocationService
@@ -32,6 +33,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -95,7 +97,7 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
@@ -170,8 +172,30 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             rvLaporan.adapter = adapter
 
         }
-        viewModel.storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        viewModel.apply {
+            storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
+            eventsFlow.onEach {
+                when (it) {
+                    is BaseViewModel.Event.Refresh -> {
+                        binding.swipeRefresh.isRefreshing = it.bool
+                    }
+                    is BaseViewModel.Event.ShowSnackbar -> {
+                        if (BaseViewModel.MESSAGE_NO_INTERNET == it.message) {
+                            binding.root.showSnackbar(R.string.error_no_internet)
+                        }
+                    }
+                }
+            }.observeInLifecycle(viewLifecycleOwner)
+
+            list.observe(viewLifecycleOwner, {
+                adapter.setData(it)
+            })
+
+            isConnected = requireContext().isConnected()
+        }
+
+        viewModel.getData()
     }
 
     private fun buttonFilterOnClick() {

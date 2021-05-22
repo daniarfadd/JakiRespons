@@ -72,7 +72,7 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_laporan_waktu"
             app:layout_constraintTop_toBottomOf="@+id/tv_laporan_waktu"
-            tools:text="@string/status" />
+            android:text="@string/status" />
 
         <TextView
             android:id="@+id/tv_laporan_status"
