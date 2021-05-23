@@ -59,4 +59,5 @@
     <string name="location_not_valid">Your location is not valid! Trying in 2 sec …</string>
     <string name="thank_report">Thank You! The data has beed uploaded successfully.</string>
     <string name="error_no_internet">Sorry, you\'re not connected to the internet.</string>
+    <string name="no_data">Error, no data avaliable!</string>
 </resources>

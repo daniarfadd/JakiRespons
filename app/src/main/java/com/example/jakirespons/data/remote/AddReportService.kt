@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 
-interface ListReportService {
+interface AddReportService {
 
     @GET("sort/{sort}")
     suspend fun getSort(@Path("sort") sort: String): List<ListReportResponseItem>?

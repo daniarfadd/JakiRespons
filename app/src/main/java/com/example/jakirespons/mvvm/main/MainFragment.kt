@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.IBinder
 import android.provider.MediaStore
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,7 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             val direction = MainFragmentDirections.actionMainFragmentToCategoryFragment()
             binding.root.findNavController().navigate(direction)
         }
-        GlobalScope.launch() {
+        GlobalScope.launch {
             delay(5000)
             setLocationForegroundServiceOff()
         }
@@ -80,7 +81,7 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private lateinit var sheetBehavior: BottomSheetBehavior<FrameLayout>
     private lateinit var sheetDialog: BottomSheetDialog
     private val adapter = MainAdapter{
-        val direction = MainFragmentDirections.actionMainFragmentToDetailFragment()
+        val direction = MainFragmentDirections.actionMainFragmentToDetailFragment(it.id ?: "")
         requireView().findNavController().navigate(direction)
     }
 
@@ -129,11 +130,49 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 btnClose.setOnClickListener {
                     sheetDialog.dismiss()
                 }
+
+                btnChoose.setOnClickListener {
+                    when (rgOptions.checkedRadioButtonId) {
+                        R.id.rb_baru -> {
+                            viewModel.sort = MainViewModel.SORT_LATEST
+                        }
+                        R.id.rb_mou -> {
+                            viewModel.sort = MainViewModel.SORT_OLDEST
+                        }
+                        R.id.rb_lvg -> {
+                            viewModel.sort = MainViewModel.SORT_COMMENT
+                        }
+                        R.id.rb_moyes -> {
+                            viewModel.sort = MainViewModel.SORT_SUPPORT
+                        }
+                    }
+
+                    sheetDialog.dismiss()
+                }
             }
 
             sheetBehavior = BottomSheetBehavior.from(bottomSheet)
             sheetDialog = BottomSheetDialog(requireContext())
             sheetDialog.setContentView(sortView.root)
+            sheetDialog.setOnShowListener {
+                when (viewModel.sort) {
+                    MainViewModel.SORT_LATEST -> {
+                        sortView.rgOptions.check(R.id.rb_baru)
+                    }
+                    MainViewModel.SORT_OLDEST -> {
+                        sortView.rgOptions.check(R.id.rb_mou)
+                    }
+                    MainViewModel.SORT_COMMENT -> {
+                        sortView.rgOptions.check(R.id.rb_lvg)
+                    }
+                    MainViewModel.SORT_SUPPORT -> {
+                        sortView.rgOptions.check(R.id.rb_moyes)
+                    }
+                }
+            }
+            sheetDialog.setOnDismissListener {
+                viewModel.getData()
+            }
             sheetDialog.window?.addFlags(FLAG_TRANSLUCENT_STATUS)
 
             toolbar.inflateMenu(R.menu.main_menu)
@@ -167,10 +206,23 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             }
 
             swipeRefresh.setOnRefreshListener {
-                swipeRefresh.isRefreshing = false
+                viewModel.getData()
             }
             rvLaporan.adapter = adapter
 
+            searchQuery.setOnKeyListener { v, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    viewModel.search = searchQuery.text.toString()
+                    viewModel.getData()
+                    return@setOnKeyListener true
+                }
+                false
+            }
+
+            btnSearch.setOnClickListener {
+                viewModel.search = searchQuery.text.toString()
+                viewModel.getData()
+            }
         }
         viewModel.apply {
             storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -189,7 +241,12 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             }.observeInLifecycle(viewLifecycleOwner)
 
             list.observe(viewLifecycleOwner, {
-                adapter.setData(it)
+                if (it.isNotEmpty()){
+                    adapter.setData(it)
+                }
+                else {
+                    binding.root.showSnackbar(R.string.no_data)
+                }
             })
 
             isConnected = requireContext().isConnected()
@@ -226,11 +283,11 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         }
     }
 
-    fun setLocationForegroundServiceOn() {
+    private fun setLocationForegroundServiceOn() {
         foregroundOnlyLocationService?.subscribeToLocationUpdates()
     }
 
-    fun setLocationForegroundServiceOff() {
+    private fun setLocationForegroundServiceOff() {
         foregroundOnlyLocationService?.unsubscribeToLocationUpdates()
     }
 

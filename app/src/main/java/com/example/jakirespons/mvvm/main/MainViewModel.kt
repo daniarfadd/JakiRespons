@@ -6,7 +6,6 @@ import androidx.lifecycle.Transformations
 import com.example.jakirespons.base.BaseViewModel
 import com.example.jakirespons.data.remote.response.ListReportResponseItem
 import com.oazisn.moviecatalog.data.remote.ListReportService
-import org.koin.java.KoinJavaComponent.inject
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -22,8 +21,16 @@ class MainViewModel(private val apiService: ListReportService) : BaseViewModel()
         it
     }
 
+    var sort = SORT_LATEST
+    var search = ""
+
     override suspend fun loadData() {
-        _list.postValue(apiService.getLatest() ?: listOf())
+        if (search.isEmpty()){
+            _list.postValue(apiService.getSort(sort) ?: listOf())
+        }
+        else {
+            _list.postValue(apiService.getSearch(search) ?: listOf())
+        }
     }
 
     @Throws(IOException::class)
@@ -39,5 +46,12 @@ class MainViewModel(private val apiService: ListReportService) : BaseViewModel()
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
         }
+    }
+
+    companion object {
+        const val SORT_LATEST = "latest"
+        const val SORT_OLDEST = "oldest"
+        const val SORT_COMMENT = "comment"
+        const val SORT_SUPPORT = "support"
     }
 }

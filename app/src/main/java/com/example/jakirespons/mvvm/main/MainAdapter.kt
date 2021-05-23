@@ -12,7 +12,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainAdapter(val onClick: () -> Unit) : RecyclerView.Adapter<MainAdapter.ListViewHolder>() {
+class MainAdapter(val onClick: (item: ListReportResponseItem) -> Unit) : RecyclerView.Adapter<MainAdapter.ListViewHolder>() {
 
     private val data = arrayListOf<ListReportResponseItem>()
     fun setData(list: List<ListReportResponseItem>) {
@@ -36,7 +36,7 @@ class MainAdapter(val onClick: () -> Unit) : RecyclerView.Adapter<MainAdapter.Li
         fun bind(item: ListReportResponseItem) {
             binding.apply {
                 root.setOnClickListener {
-                    onClick()
+                    onClick(item)
                 }
 
                 Glide.with(root.context)
