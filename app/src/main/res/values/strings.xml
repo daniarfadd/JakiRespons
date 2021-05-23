@@ -60,4 +60,9 @@
     <string name="thank_report">Thank You! The data has beed uploaded successfully.</string>
     <string name="error_no_internet">Sorry, you\'re not connected to the internet.</string>
     <string name="no_data">Error, no data avaliable!</string>
+    <string name="lap_riwayat">Riwayat selengkapnya</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stat_waktu">23 Mei 2021</string>
+    <string name="lap_comment">Mohon cek dan TL terima kasih</string>
 </resources>
