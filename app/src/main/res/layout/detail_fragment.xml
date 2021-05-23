@@ -227,11 +227,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginBottom="3dp"
+                    android:layout_marginBottom="6dp"
                     tools:text="@string/lap_proses"
                     android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/riwayat_laporan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="3dp"
+                    android:textAlignment="textEnd"
+                    android:text="@string/lap_riwayat"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold"
+                    android:onClick="onClick"
+                    android:clickable="true"
+                    />
 
             </LinearLayout>
 
