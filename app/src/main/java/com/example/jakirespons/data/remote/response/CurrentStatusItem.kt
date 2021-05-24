@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 data class CurrentStatusItem(
 
 	@field:Json(name="created_at")
-	val createdAt: String? = null,
+	var createdAt: String? = null,
 
 	@field:Json(name="status")
 	val status: String? = null,

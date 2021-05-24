@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.jakirespons.base.BaseViewModel
 import com.example.jakirespons.data.remote.response.ListReportResponseItem
-import com.oazisn.moviecatalog.data.remote.ListReportService
+import com.example.jakirespons.data.remote.ListReportService
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat

@@ -1,4 +1,4 @@
-package com.oazisn.moviecatalog.data.remote
+package com.example.jakirespons.data.remote
 
 import com.example.jakirespons.data.remote.response.DetailReportResponseItem
 import com.example.jakirespons.data.remote.response.ListReportResponseItem

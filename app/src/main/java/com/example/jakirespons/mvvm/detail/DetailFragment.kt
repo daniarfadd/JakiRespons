@@ -59,6 +59,8 @@ class DetailFragment : Fragment() {
 
         detailViewModel.apply{
             id = args.id
+            isConnected = requireContext().isConnected()
+
             eventsFlow.onEach {
                 when (it) {
                     is BaseViewModel.Event.Refresh -> {
@@ -87,12 +89,19 @@ class DetailFragment : Fragment() {
                     val long = it.longi?.toDouble() ?: 0.0
 
                     val geocoder = Geocoder(root.context, Locale.getDefault())
-                    val addr = geocoder.getFromLocation(lat, long, 1)
-                    if (addr.size > 0 ){
-                        lokasiLaporan.text = addr[0].locality
+                    try {
+                        val addr = geocoder.getFromLocation(lat, long, 1)
+                        if (addr.size > 0 ){
+                            lokasiLaporan.text = addr[0].locality
+                        }
+                        else {
+                            lokasiLaporan.text = "-"
+                        }
+
                     }
-                    else {
+                    catch (e: Exception){
                         lokasiLaporan.text = "-"
+
                     }
 
                     llLocation.setOnClickListener {
@@ -113,10 +122,13 @@ class DetailFragment : Fragment() {
                     ibLocation.setOnClickListener {
                         intentMaps(long, lat)
                     }
+
+                    statusLap.text = it.currentStatus?.get(0)?.status
+                    tglProses.text = it.currentStatus?.get(0)?.createdAt
+                    prosesLaporan.text = it.currentStatus?.get(0)?.who
                 }
             })
 
-            isConnected = requireContext().isConnected()
 
         }
 

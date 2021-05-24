@@ -1,4 +1,4 @@
-package com.oazisn.moviecatalog.data.remote
+package com.example.jakirespons.data.remote
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor

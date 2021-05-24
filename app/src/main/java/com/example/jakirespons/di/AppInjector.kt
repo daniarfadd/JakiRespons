@@ -12,6 +12,6 @@ val appModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { CategoryViewModel() }
     viewModel { DescriptionViewModel() }
-    viewModel { SummaryViewModel() }
+    viewModel { SummaryViewModel(get()) }
     viewModel { DetailViewModel(get()) }
 }

@@ -1,12 +1,11 @@
 package com.example.jakirespons.mvvm.detail
 
-import android.text.format.DateUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.jakirespons.base.BaseViewModel
 import com.example.jakirespons.data.remote.response.DetailReportResponseItem
-import com.oazisn.moviecatalog.data.remote.DetailReportService
+import com.example.jakirespons.data.remote.DetailReportService
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,8 +24,11 @@ class DetailViewModel(private val apiService: DetailReportService) : BaseViewMod
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val sdfTo = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         try {
-            val date = sdf.parse(result.createdAt ?: "1970-01-01 00:00:00")
+            var date = sdf.parse(result.createdAt ?: "1970-01-01 00:00:00")
             result.createdAt = sdfTo.format(date!!)
+
+            date = sdf.parse(result.currentStatus?.get(0)?.createdAt ?: "1970-01-01 00:00:00")
+            result.currentStatus?.get(0).createdAt = sdfTo.format(date!!)
         }
         catch (e: ParseException) {
             e.printStackTrace()

@@ -88,6 +88,8 @@ class SummaryFragment : Fragment() {
         }
 
         summaryViewModel.apply {
+            isConnected = requireContext().isConnected()
+
             eventsFlow.onEach {
                 when(it) {
                     is SummaryViewModel.Event.IsLocValid -> {
@@ -113,6 +115,11 @@ class SummaryFragment : Fragment() {
                             requireView().showSnackbar(R.string.thank_report)
                             val direction = SummaryFragmentDirections.actionSummaryFragmentToMainFragment()
                             requireView().findNavController().navigate(direction)
+                        }
+                        else {
+                            requireView().showSnackbar(R.string.error_up_report)
+                            binding.send.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.INVISIBLE
                         }
                     }
                 }

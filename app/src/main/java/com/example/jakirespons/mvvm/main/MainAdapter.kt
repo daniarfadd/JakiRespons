@@ -49,11 +49,16 @@ class MainAdapter(val onClick: (item: ListReportResponseItem) -> Unit) : Recycle
                 val long = item.longi?.toDouble() ?: 0.0
 
                 val geocoder = Geocoder(root.context, Locale.getDefault())
-                val addr = geocoder.getFromLocation(lat, long, 1)
-                if (addr.size > 0 ){
-                    tvLaporanLokasi.text = addr[0].locality
+                try {
+                    val addr = geocoder.getFromLocation(lat, long, 1)
+                    if (addr.size > 0 ){
+                        tvLaporanLokasi.text = addr[0].locality
+                    }
+                    else {
+                        tvLaporanLokasi.text = "-"
+                    }
                 }
-                else {
+                catch (e: Exception) {
                     tvLaporanLokasi.text = "-"
                 }
 
