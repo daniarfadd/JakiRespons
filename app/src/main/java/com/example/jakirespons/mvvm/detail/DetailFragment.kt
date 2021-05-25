@@ -80,10 +80,10 @@ class DetailFragment : Fragment() {
                         .load(it.photo)
                         .into(gambarLaporan)
 
-                    judulLaporan.text = it.title
+                    judulLaporan.text = it.title?.removeSurrounding("\"")
                     nomorLaporan.text = it.id
                     tanggalMasuk.text = it.createdAt
-                    kategoriLap.text = it.category
+                    kategoriLap.text = it.category?.removeSurrounding("\"")
 
                     val lat = it.lat?.toDouble() ?: 0.0
                     val long = it.longi?.toDouble() ?: 0.0
@@ -123,9 +123,9 @@ class DetailFragment : Fragment() {
                         intentMaps(long, lat)
                     }
 
-                    statusLap.text = it.currentStatus?.get(0)?.status
-                    tglProses.text = it.currentStatus?.get(0)?.createdAt
-                    prosesLaporan.text = it.currentStatus?.get(0)?.who
+//                    statusLap.text = it.currentStatus?.get(0)?.status
+//                    tglProses.text = it.currentStatus?.get(0)?.createdAt
+//                    prosesLaporan.text = it.currentStatus?.get(0)?.who
                 }
             })
 

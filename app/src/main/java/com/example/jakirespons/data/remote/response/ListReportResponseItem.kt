@@ -20,7 +20,7 @@ data class ListReportResponseItem(
 	val longi: String? = null,
 
 	@field:Json(name="title")
-	val title: String? = null,
+	var title: String? = null,
 
 	@field:Json(name="lat")
 	val lat: String? = null,

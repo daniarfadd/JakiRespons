@@ -206,74 +206,74 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_marginBottom="16dp">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:lineSpacingMultiplier="1"
-                        android:textSize="16sp"
-                        android:text="@string/stat_laporan"
-                        android:textColor="@android:color/black" />
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:layout_marginRight="16dp"-->
+<!--                        android:layout_marginBottom="8dp"-->
+<!--                        android:lineSpacingMultiplier="1"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:text="@string/stat_laporan"-->
+<!--                        android:textColor="@android:color/black" />-->
 
-                    <TextView
-                        android:id="@+id/status_lap"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="3dp"
-                        android:lineSpacingMultiplier="1"
-                        android:textSize="12sp"
-                        tools:text="@string/stat_lap"
-                        android:textColor="@android:color/holo_purple" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/status_lap"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:layout_marginRight="16dp"-->
+<!--                        android:layout_marginBottom="3dp"-->
+<!--                        android:lineSpacingMultiplier="1"-->
+<!--                        android:textSize="12sp"-->
+<!--                        tools:text="@string/stat_lap"-->
+<!--                        android:textColor="@android:color/holo_purple" />-->
 
-                    <TextView
-                        android:id="@+id/tgl_proses"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="3dp"
-                        tools:text="@string/tgl_proses" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tgl_proses"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:layout_marginRight="16dp"-->
+<!--                        android:layout_marginBottom="3dp"-->
+<!--                        tools:text="@string/tgl_proses" />-->
 
-                <TextView
-                    android:id="@+id/proses_laporan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="6dp"
-                    tools:text="@string/lap_proses"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/proses_laporan"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginRight="16dp"-->
+<!--                    android:layout_marginBottom="6dp"-->
+<!--                    tools:text="@string/lap_proses"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/riwayat_laporan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="3dp"
-                    android:textAlignment="textEnd"
-                    android:text="@string/lap_riwayat"
-                    android:textSize="12sp"
-                    android:textColor="@color/blue"
-                    android:textStyle="bold"
-                    android:onClick="onClick"
-                    android:clickable="true"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/riwayat_laporan"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginRight="16dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:textAlignment="textEnd"-->
+<!--                    android:text="@string/lap_riwayat"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/blue"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:onClick="onClick"-->
+<!--                    android:clickable="true"-->
+<!--                    />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
 
 

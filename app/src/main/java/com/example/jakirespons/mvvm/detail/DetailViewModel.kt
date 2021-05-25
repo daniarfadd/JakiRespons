@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import com.example.jakirespons.base.BaseViewModel
 import com.example.jakirespons.data.remote.response.DetailReportResponseItem
 import com.example.jakirespons.data.remote.DetailReportService
+import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,7 +31,7 @@ class DetailViewModel(private val apiService: DetailReportService) : BaseViewMod
             date = sdf.parse(result.currentStatus?.get(0)?.createdAt ?: "1970-01-01 00:00:00")
             result.currentStatus?.get(0)?.createdAt = sdfTo.format(date!!)
         }
-        catch (e: ParseException) {
+        catch (e: Exception) {
             e.printStackTrace()
         }
 

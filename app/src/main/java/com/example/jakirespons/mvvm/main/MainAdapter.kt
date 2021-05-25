@@ -17,7 +17,10 @@ class MainAdapter(val onClick: (item: ListReportResponseItem) -> Unit) : Recycle
     private val data = arrayListOf<ListReportResponseItem>()
     fun setData(list: List<ListReportResponseItem>) {
         data.clear()
-        data.addAll(list)
+        list.forEach {
+            it.title = it.title?.removeSurrounding("\"")
+            data.add(it)
+        }
         notifyDataSetChanged()
     }
 
@@ -71,7 +74,7 @@ class MainAdapter(val onClick: (item: ListReportResponseItem) -> Unit) : Recycle
                     e.printStackTrace()
                 }
 
-                tvLaporanStatus.text = item.status
+//                tvLaporanStatus.text = item.status
             }
         }
     }
