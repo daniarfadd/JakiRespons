@@ -28,7 +28,7 @@ class DetailViewModel(private val apiService: DetailReportService) : BaseViewMod
             result.createdAt = sdfTo.format(date!!)
 
             date = sdf.parse(result.currentStatus?.get(0)?.createdAt ?: "1970-01-01 00:00:00")
-            result.currentStatus?.get(0).createdAt = sdfTo.format(date!!)
+            result.currentStatus?.get(0)?.createdAt = sdfTo.format(date!!)
         }
         catch (e: ParseException) {
             e.printStackTrace()
