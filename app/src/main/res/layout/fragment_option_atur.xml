@@ -35,6 +35,12 @@
             android:text="@string/paling_lama" />
 
         <RadioButton
+            android:id="@+id/rb_urgent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/most_urgent" />
+
+        <RadioButton
             android:id="@+id/rb_lvg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/banyak_dukung" />
+
     </RadioGroup>
 
     <LinearLayout

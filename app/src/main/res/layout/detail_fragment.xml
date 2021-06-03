@@ -97,6 +97,27 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="3dp"
+                        android:text="@string/urgency_level" />
+
+                    <TextView
+                        android:id="@+id/urgency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="3dp"
+                        android:lineSpacingMultiplier="1"
+                        android:textSize="16sp"
+                        tools:text="@string/urgent"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="3dp"
                         android:text="@string/nomor_laporan" />
 
                     <TextView
@@ -152,7 +173,6 @@
                         android:textSize="16sp"
                         tools:text="@string/kate_lap"
                         android:textColor="@android:color/black" />
-
 
                 </LinearLayout>
 

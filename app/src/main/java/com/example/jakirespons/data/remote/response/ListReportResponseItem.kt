@@ -26,5 +26,8 @@ data class ListReportResponseItem(
 	val lat: String? = null,
 
 	@field:Json(name="status")
-	val status: String? = null
+	val status: String? = null,
+
+	@field:Json(name="urgent")
+	val urgent: Int? = null
 )

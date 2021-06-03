@@ -4,8 +4,10 @@ import android.location.Geocoder
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.jakirespons.R
 import com.example.jakirespons.data.remote.response.ListReportResponseItem
 import com.example.jakirespons.databinding.ItemsLaporanBinding
 import java.text.ParseException
@@ -74,6 +76,14 @@ class MainAdapter(val onClick: (item: ListReportResponseItem) -> Unit) : Recycle
                     e.printStackTrace()
                 }
 
+                if (item.urgent == 1) {
+                    tvUrgent.text = root.context.resources.getString(R.string.urgent)
+                    tvUrgent.setTextColor(ContextCompat.getColor(root.context, R.color.red))
+                }
+                else {
+                    tvUrgent.text = root.context.resources.getString(R.string.not_urgent)
+                    tvUrgent.setTextColor(tvLaporanWaktu.textColors)
+                }
 //                tvLaporanStatus.text = item.status
             }
         }

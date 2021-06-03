@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -121,6 +122,15 @@ class DetailFragment : Fragment() {
                     }
                     ibLocation.setOnClickListener {
                         intentMaps(long, lat)
+                    }
+
+                    if (it.urgent == 1) {
+                        urgency.text = root.context.resources.getString(R.string.urgent)
+                        urgency.setTextColor(ContextCompat.getColor(root.context, R.color.red))
+                    }
+                    else {
+                        urgency.text = root.context.resources.getString(R.string.not_urgent)
+                        urgency.setTextColor(nomorLaporan.textColors)
                     }
 
 //                    statusLap.text = it.currentStatus?.get(0)?.status

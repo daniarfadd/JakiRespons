@@ -47,5 +47,8 @@ data class DetailReportResponseItem(
 	val reviewPhoto: Any? = null,
 
 	@field:Json(name="status")
-	val status: String? = null
+	val status: String? = null,
+
+	@field:Json(name="urgent")
+	val urgent: Int? = null
 )

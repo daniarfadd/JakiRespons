@@ -145,6 +145,9 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                         R.id.rb_moyes -> {
                             viewModel.sort = MainViewModel.SORT_SUPPORT
                         }
+                        R.id.rb_urgent -> {
+                            viewModel.sort = MainViewModel.SORT_URGENT
+                        }
                     }
 
                     sheetDialog.dismiss()
@@ -167,6 +170,9 @@ class MainFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                     }
                     MainViewModel.SORT_SUPPORT -> {
                         sortView.rgOptions.check(R.id.rb_moyes)
+                    }
+                    MainViewModel.SORT_URGENT -> {
+                        sortView.rgOptions.check(R.id.rb_urgent)
                     }
                 }
             }

@@ -53,5 +53,6 @@ class MainViewModel(private val apiService: ListReportService) : BaseViewModel()
         const val SORT_OLDEST = "oldest"
         const val SORT_COMMENT = "comment"
         const val SORT_SUPPORT = "support"
+        const val SORT_URGENT = "urgent"
     }
 }

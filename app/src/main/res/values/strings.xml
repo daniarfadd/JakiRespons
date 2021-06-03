@@ -14,28 +14,28 @@
     <string name="write_a_description_here">Write a description here</string>
     <string name="error">Error</string>
     <string name="error_min_10_char">The description must have a minimum of 10 characters.</string>
-    <string name="ok">OK</string>
-    <string name="preference_file_key">com.example.jakiresponse.PREFERENCE_FILE_KEY</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="preference_file_key" translatable="false">com.example.jakiresponse.PREFERENCE_FILE_KEY</string>
     <string name="location_in_use">This app is using your location.</string>
-    <string name="dummy_judul">Anak saya entah kemana dan main sama siapa</string>
-    <string name="ditel_laporan">Detail Laporan</string>
-    <string name="nomor_laporan">Nomor Laporan</string>
-    <string name="no_lap">JK123456</string>
-    <string name="tanggal_masuk">Tanggal Masuk</string>
-    <string name="tgl_lap">18 Februari 2021</string>
-    <string name="kategori_lap">Kategori</string>
-    <string name="kate_lap">Perizinan Pendidikan</string>
-    <string name="lok_laporan">Lokasi</string>
-    <string name="lokasi_laporan">Jakarta Utara, jl asep</string>
-    <string name="stat_laporan">Status Laporan</string>
-    <string name="stat_lap">Koordinasi</string>
-    <string name="tgl_proses">19 Februari 2021</string>
-    <string name="lap_proses">Laporan dikoordinasikan ke DINAS PENDIDIKAN</string>
-    <string name="find_report">Laporan number or keywords…</string>
-    <string name="title">Tolong ayam saya dipukuli</string>
-    <string name="lokasi_list_laporan">Cempakah Putih Barat</string>
-    <string name="waktu_list_laporan">5 jam yang lalu</string>
-    <string name="status">Status :</string>
+    <string name="dummy_judul" translatable="false">Anak saya entah kemana dan main sama siapa</string>
+    <string name="ditel_laporan" translatable="false">Detail Laporan</string>
+    <string name="nomor_laporan" translatable="false">Nomor Laporan</string>
+    <string name="no_lap" translatable="false">JK123456</string>
+    <string name="tanggal_masuk" translatable="false">Tanggal Masuk</string>
+    <string name="tgl_lap" translatable="false">18 Februari 2021</string>
+    <string name="kategori_lap" translatable="false">Kategori</string>
+    <string name="kate_lap" translatable="false">Perizinan Pendidikan</string>
+    <string name="lok_laporan" translatable="false">Lokasi</string>
+    <string name="lokasi_laporan" translatable="false">Jakarta Utara, jl asep</string>
+    <string name="stat_laporan" translatable="false">Status Laporan</string>
+    <string name="stat_lap" translatable="false">Koordinasi</string>
+    <string name="tgl_proses" translatable="false">19 Februari 2021</string>
+    <string name="lap_proses" translatable="false">Laporan dikoordinasikan ke DINAS PENDIDIKAN</string>
+    <string name="find_report">Report number or keywords…</string>
+    <string name="title" translatable="false">Tolong ayam saya dipukuli</string>
+    <string name="lokasi_list_laporan" translatable="false">Cempakah Putih Barat</string>
+    <string name="waktu_list_laporan" translatable="false">5 jam yang lalu</string>
+    <string name="status" translatable="false">Status :</string>
     <string name="category_selected_snackbar">%1$s selected!</string>
     <string name="please_wait">Please Wait…</string>
     <string name="request_gps_enabled">Your device GPS or internet access are disabled. Please turn it on and try again.</string>
@@ -46,13 +46,13 @@
     <string name="description">DESCRIPTION</string>
     <string name="category">CATEGORY</string>
     <string name="send">Send</string>
-    <string name="atur">Atur</string>
+    <string name="atur" translatable="false">Atur</string>
     <string name="paling_baru">Newest</string>
     <string name="paling_lama">Oldest</string>
     <string name="banyak_komen">Most commented</string>
     <string name="banyak_dukung">Most supported</string>
     <string name="close">Close</string>
-    <string name="choose">Choose</string>
+    <string name="choose">Apply</string>
     <string name="under_development">This feature is under active development!</string>
     <string name="filter">Filter</string>
     <string name="sort">Sort</string>
@@ -60,10 +60,14 @@
     <string name="thank_report">Thank You! The data has been uploaded successfully.</string>
     <string name="error_up_report">Sorry, The data has not been uploaded yet.</string>
     <string name="error_no_internet">Sorry, you\'re not connected to the internet.</string>
-    <string name="no_data">Error, no data avaliable!</string>
-    <string name="lap_riwayat">Riwayat selengkapnya</string>
+    <string name="no_data">Error, no data available!</string>
+    <string name="lap_riwayat" translatable="false">Riwayat selengkapnya</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="stat_waktu">23 Mei 2021</string>
-    <string name="lap_comment">Mohon cek dan TL terima kasih</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="stat_waktu" translatable="false">23 Mei 2021</string>
+    <string name="lap_comment" translatable="false">Mohon cek dan TL terima kasih</string>
+    <string name="most_urgent">Most urgent</string>
+    <string name="urgent">Urgent</string>
+    <string name="not_urgent">Not Urgent</string>
+    <string name="urgency_level">Urgency Level</string>
 </resources>
